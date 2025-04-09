@@ -333,8 +333,10 @@ def update_ui_from_json(data):
     frame_player.pack(fill=BOTH, expand=True, padx=10, pady=10)
     
     for player_id, player_name in data["playerNames"]["value"].items():
-        player_health = data["dictionaryOfDictionaries"]["value"]["playerHealth"][player_id]
-        players.append({"id": player_id, "name": player_name, "health": player_health})
+        health_dict = data["dictionaryOfDictionaries"]["value"]["playerHealth"]
+        if player_id in health_dict:
+            player_health = health_dict[player_id]
+            players.append({"id": player_id, "name": player_name, "health": player_health})
     
     def fetch_steam_profile_picture(player_id):
         """Fetch and cache Steam profile picture in the cache folder."""
